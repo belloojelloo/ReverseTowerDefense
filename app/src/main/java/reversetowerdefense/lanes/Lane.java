@@ -3,25 +3,27 @@ import reversetowerdefense.exceptions.*;
 
 import java.util.ArrayList;
 
+import reversetowerdefense.entities.Entity;
+import reversetowerdefense.entities.EntityType;
 import reversetowerdefense.entities.Troop;
 import reversetowerdefense.entities.TroopType;
 
 public class Lane {
-    private ArrayList<ArrayList<Troop>> lane;
+    private ArrayList<ArrayList<Entity>> lane;
     private final int laneIndex;
     private final int laneSize;
     
     public Lane(int laneIndex, int laneSize){
         this.laneIndex = laneIndex;
         this.laneSize = laneSize;
-        this.lane = new ArrayList<ArrayList<Troop>>(laneSize);
+        this.lane = new ArrayList<ArrayList<Entity>>(laneSize);
         
     }
-    public ArrayList<ArrayList<Troop>> getLane() {
+    public ArrayList<ArrayList<Entity>> getLane() {
         return lane;
     }
 
-    public void setLane(ArrayList<ArrayList<Troop>> lane) {
+    public void setLane(ArrayList<ArrayList<Entity>> lane) {
         this.lane = lane;
     }
 
@@ -41,25 +43,37 @@ public class Lane {
 
     }
     public void addTroop(int column,Troop troop) throws IllegalAddException{
-        if(lane.get(column).size() > 3){ //checks if the selected column is full
-            if(troop.getTroopType() == TroopType.BIRD){ //birds are allowed if it is full
-                lane.get(column).add(troop);
+        if(lane.get(column).get(0).getEntityType() == EntityType.TOWER){ //checks first if column is a tower
+            throw new IllegalAddException("Cannot add troop to Tower");
         }
         else{
-            throw new IllegalAddException(); // throws excetion that its not allowed
+            if(lane.get(column).size() > 3){ //checks if the selected column is full
+                if(troop.getTroopType() == TroopType.BIRD){ //birds are allowed if it is full
+                    lane.get(column).add(troop);
+        }
+        else{
+            throw new IllegalAddException("Column is full"); // throws exception that its not allowed
         }
         }
-        else{ //if the column is 3 or less then add any troop
+        else{ //if the column is 3 or less and not a tower then add any troop
             lane.get(column).add(troop);
         }
+        }
+        
         
     }
     public void removeTroop(int column, Troop troop) throws IllegalRemovalException{
-        if(lane.get(column).size() == 0){
-            throw new IllegalRemovalException();
+        if(lane.get(column).size() == 0){ //checks if column is empty
+            throw new IllegalRemovalException(); //throws exception if column is empty
         }
         else{
-            //missing
+            for(int i = 0; i<lane.get(column).size(); i++){
+                if(lane.get(column).get(i) == troop){ //loops through column entities to see if there is the desired troop
+                    lane.get(column).remove(i);
+                    return;
+                }
+            }
+            throw new IllegalRemovalException();
         }
     }
     public ArrayList<Troop> getTroopsAt(int column){

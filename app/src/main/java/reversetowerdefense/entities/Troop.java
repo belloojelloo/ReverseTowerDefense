@@ -1,20 +1,15 @@
 package reversetowerdefense.entities;
 
-public abstract class Troop {
-    protected final String name;
+public abstract class Troop extends Entity{
     protected final TroopType troopType;
-    protected int hitSpeed;
-    protected int hp;
     protected int speed;
     protected int damage;
 
     public Troop(String name, int hp, int speed, int damage, TroopType troopType, int hitSpeed){
-        this.name = name;
+        super(name, hp, hitSpeed, EntityType.TROOP);
         this.damage = damage;
-        this.hp = hp;
         this.speed = speed;
         this.troopType = troopType;
-        this.hitSpeed = hitSpeed;
 
     }
 

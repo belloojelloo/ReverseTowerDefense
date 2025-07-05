@@ -1,22 +1,18 @@
 package reversetowerdefense.entities;
 
-public abstract class Tower {
+public abstract class Tower extends Entity{
     
-    protected final String name;
-    protected int hp;
     protected final int range;
     protected TowerType towerType;
     protected TroopType spawnedTroop;
-    protected int hitSpeed;
+    
 
 
     public Tower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, int hitSpeed) {
-        this.name = name;
-        this.hp = hp;
+        super(name, hp, hitSpeed, EntityType.TOWER);
         this.range = range;
         this.towerType = towerType;
         this.spawnedTroop = spawnedTroop;
-        this.hitSpeed = hitSpeed;
     }
 
     public abstract void spawnTroop();
