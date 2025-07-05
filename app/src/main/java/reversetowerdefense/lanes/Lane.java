@@ -113,10 +113,16 @@ public class Lane {
 
     }
     public boolean isColumnEmpty(int column){
-        return false;
+        return (lane.get(column).size() > 0);
     }
     public boolean isLaneEmpty(){
-        return false;
+        
+        for(int i = 0; i < lane.size(); i++){
+            if(lane.get(i).size() > 0){
+                return false;
+            }
+        }
+        return true;
     }
    
 
