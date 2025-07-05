@@ -8,9 +8,14 @@ import reversetowerdefense.entities.Troop;
 public class Lane {
     private ArrayList<ArrayList<Troop>> lane;
     private final int laneIndex;
-    private int laneSize;
+    private final int laneSize;
     
-
+    public Lane(int laneIndex, int laneSize){
+        this.laneIndex = laneIndex;
+        this.laneSize = laneSize;
+        this.lane = new ArrayList<ArrayList<Troop>>(laneSize);
+        
+    }
     public ArrayList<ArrayList<Troop>> getLane() {
         return lane;
     }
@@ -27,14 +32,9 @@ public class Lane {
         return laneSize;
     }
 
-    public void setLaneSize(int laneSize) {
-        this.laneSize = laneSize;
-    }
+    
 
-    public Lane(int laneIndex){
-        this.laneIndex = laneIndex;
-        this.lane = new ArrayList<ArrayList<Troop>>();
-    }
+    
 
     public void update(float deltaTime){
 
