@@ -4,6 +4,7 @@ import reversetowerdefense.exceptions.*;
 import java.util.ArrayList;
 
 import reversetowerdefense.entities.Troop;
+import reversetowerdefense.entities.TroopType;
 
 public class Lane {
     private ArrayList<ArrayList<Troop>> lane;
@@ -40,10 +41,26 @@ public class Lane {
 
     }
     public void addTroop(int column,Troop troop) throws IllegalAddException{
-
+        if(lane.get(column).size() > 3){ //checks if the selected column is full
+            if(troop.getTroopType() == TroopType.BIRD){ //birds are allowed if it is full
+                lane.get(column).add(troop);
+        }
+        else{
+            throw new IllegalAddException(); // throws excetion that its not allowed
+        }
+        }
+        else{ //if the column is 3 or less then add any troop
+            lane.get(column).add(troop);
+        }
+        
     }
     public void removeTroop(int column, Troop troop) throws IllegalRemovalException{
-        
+        if(lane.get(column).size() == 0){
+            throw new IllegalRemovalException();
+        }
+        else{
+            //missing
+        }
     }
     public ArrayList<Troop> getTroopsAt(int column){
         return new ArrayList<Troop>();
