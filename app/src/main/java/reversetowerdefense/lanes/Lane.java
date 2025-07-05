@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import reversetowerdefense.entities.Entity;
 import reversetowerdefense.entities.EntityType;
+import reversetowerdefense.entities.Tower;
 import reversetowerdefense.entities.Troop;
 import reversetowerdefense.entities.TroopType;
 
@@ -35,9 +36,7 @@ public class Lane {
         return laneSize;
     }
 
-    
 
-    
 
     public void update(float deltaTime){
 
@@ -63,12 +62,16 @@ public class Lane {
         
     }
     public void removeTroop(int column, Troop troop) throws IllegalRemovalException{
+        if(lane.get(column).get(0).getEntityType() == EntityType.TOWER){ //checks first if column is a tower
+            throw new IllegalRemovalException("Cannot remove tower");
+        }
         if(lane.get(column).size() == 0){ //checks if column is empty
             throw new IllegalRemovalException(); //throws exception if column is empty
         }
         else{
             for(int i = 0; i<lane.get(column).size(); i++){
-                if(lane.get(column).get(i) == troop){ //loops through column entities to see if there is the desired troop
+                if(lane.get(column).get(i).equals(troop) && lane.get(column).get(i).getEntityType() == EntityType.TROOP){ 
+                    //loops through column entities to see if there is the desired troop
                     lane.get(column).remove(i);
                     return;
                 }
@@ -76,9 +79,36 @@ public class Lane {
             throw new IllegalRemovalException();
         }
     }
-    public ArrayList<Troop> getTroopsAt(int column){
-        return new ArrayList<Troop>();
+    public ArrayList<Entity> getTroopsAt(int column) throws InvalidSelectionException{
+        
+        if(lane.get(column).size() == 0){
+            throw new InvalidSelectionException("No Entities Selected");
+        }
+        
+        if(lane.get(column).get(0).getEntityType() == EntityType.TOWER){
+            throw new InvalidSelectionException("Cannot select troops at a tower");
+        }
+        
+        return lane.get(column);
     }
+    
+    public void addTower(int column, Tower tower) throws IllegalAddException{
+        if(lane.get(column).size() == 0){
+            lane.get(column).add(0,tower);
+        }
+        else{
+            throw new IllegalAddException("Entities exist in this column");
+        }
+    }
+    public void removeTower(int column, Tower tower) throws IllegalRemovalException{
+        if(!(lane.get(column).get(0).equals(tower))){ //checks if there is a tower and throws exception if there isnt
+            throw new IllegalRemovalException("No tower found");
+        }
+        else{
+            lane.get(column).remove(0); //removes tower
+        }
+    }
+
     public void updateLane(float deltaTime){
 
     }
