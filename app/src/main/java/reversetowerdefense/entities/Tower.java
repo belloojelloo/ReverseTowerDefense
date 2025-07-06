@@ -8,7 +8,7 @@ public abstract class Tower extends Entity{
     
 
 
-    public Tower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, int hitSpeed) {
+    public Tower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, float hitSpeed) {
         super(name, hp, hitSpeed, EntityType.TOWER);
         this.range = range;
         this.towerType = towerType;
@@ -21,7 +21,7 @@ public abstract class Tower extends Entity{
     public String getName() {
         return name;
     }
-    public int gethitSpeed() {
+    public float gethitSpeed() {
         return hitSpeed;
     }
     public void sethitSpeed(int hitSpeed){
@@ -54,10 +54,6 @@ public abstract class Tower extends Entity{
 
     public void setSpawnedTroop(TroopType spawnedTroop) {
         this.spawnedTroop = spawnedTroop;
-    }
-
-    public int getHitSpeed() {
-        return hitSpeed;
     }
 
     public void setHitSpeed(int hitSpeed) {

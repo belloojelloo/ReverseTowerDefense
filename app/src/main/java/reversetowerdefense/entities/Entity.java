@@ -1,12 +1,14 @@
 package reversetowerdefense.entities;
 
-public class Entity {
+public abstract class Entity {
     protected final String name;
     protected int hp;
-    protected int hitSpeed;
+    protected float hitSpeed;
     protected EntityType entityType;
+    protected int xposition;
 
-    public Entity(String name, int hp, int hitSpeed, EntityType entityType){
+
+    public Entity(String name, int hp, float hitSpeed, EntityType entityType){
         this.name = name;
         this.hp = hp;
         this.hitSpeed = hitSpeed;
@@ -20,6 +22,7 @@ public class Entity {
     public void setEntityType(EntityType entityType) {
         this.entityType = entityType;
     }
-    
+   
+
 
 }

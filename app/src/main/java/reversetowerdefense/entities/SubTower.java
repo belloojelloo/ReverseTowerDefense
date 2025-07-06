@@ -5,7 +5,7 @@ public class SubTower extends Tower{
 
 
 
-    public SubTower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, int hitSpeed) {
+    public SubTower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, float hitSpeed) {
         super("Sub", 500, 1, TowerType.SUB, TroopType.SOLDIER, 1);
         
     }

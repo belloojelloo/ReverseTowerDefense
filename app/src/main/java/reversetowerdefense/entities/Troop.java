@@ -5,7 +5,7 @@ public abstract class Troop extends Entity{
     protected int speed;
     protected int damage;
 
-    public Troop(String name, int hp, int speed, int damage, TroopType troopType, int hitSpeed){
+    public Troop(String name, int hp, int speed, int damage, TroopType troopType, float hitSpeed){
         super(name, hp, hitSpeed, EntityType.TROOP);
         this.damage = damage;
         this.speed = speed;
@@ -25,7 +25,7 @@ public abstract class Troop extends Entity{
         return troopType;
     }
 
-    public int getHitSpeed() {
+    public float getHitSpeed() {
         return hitSpeed;
     }
 
@@ -55,6 +55,9 @@ public abstract class Troop extends Entity{
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+    public void update(float deltaTime){
+        
     }
 
 
