@@ -50,6 +50,7 @@ public class Lane {
             if(lane.get(column).size() > 3){ //checks if the selected column is full
                 if(troop.getTroopType() == TroopType.BIRD){ //birds are allowed if it is full
                     lane.get(column).add(troop);
+                    troop.setXposition(column);
         }
         else{
             throw new IllegalAddException("Column is full"); // throws exception that its not allowed
@@ -57,6 +58,7 @@ public class Lane {
         }
         else{ //if the column is 3 or less and not a tower then add any troop
             lane.get(column).add(troop);
+             troop.setXposition(column);
         }
         }
         
@@ -96,6 +98,8 @@ public class Lane {
     public void addTower(int column, Tower tower) throws IllegalAddException{
         if(lane.get(column).size() == 0){
             lane.get(column).add(0,tower);
+            lane.get(column).get(0).setXposition(column);
+            
         }
         else{
             throw new IllegalAddException("Entities exist in this column");

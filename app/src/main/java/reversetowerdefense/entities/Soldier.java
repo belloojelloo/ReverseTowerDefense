@@ -9,7 +9,7 @@ public class Soldier extends Troop{
 
 
     @Override
-    public void move() {
+    public void move(float deltaTime) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
