@@ -21,11 +21,8 @@ public abstract class Tower extends Entity{
     public String getName() {
         return name;
     }
-    public float getattackCooldown() {
+    public float getHitSpeed() {
         return hitSpeed;
-    }
-    public void setattackCooldown(float hitSpeed){
-        this.hitSpeed = hitSpeed;
     }
 
     public int getHp() {
@@ -55,6 +52,8 @@ public abstract class Tower extends Entity{
     public void setSpawnedTroop(TroopType spawnedTroop) {
         this.spawnedTroop = spawnedTroop;
     }
+
+    
 
     
     

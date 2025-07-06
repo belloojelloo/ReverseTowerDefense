@@ -1,6 +1,6 @@
 package reversetowerdefense.lanes;
 import reversetowerdefense.exceptions.*;
-import java.util.concurrent.*;
+
 import java.util.ArrayList;
 
 import reversetowerdefense.entities.Entity;
@@ -13,13 +13,13 @@ public class Lane {
     private ArrayList<ArrayList<Entity>> lane;
     private final int laneIndex;
     private final int laneSize;
-    private ScheduledExecutorService executor;
+    
     
     public Lane(int laneIndex, int laneSize){
         this.laneIndex = laneIndex;
         this.laneSize = laneSize;
         this.lane = new ArrayList<ArrayList<Entity>>(laneSize);
-        executor = Executors.newSingleThreadScheduledExecutor();
+        
     }
     public ArrayList<ArrayList<Entity>> getLane() {
         return lane;
@@ -36,11 +36,11 @@ public class Lane {
     public int getLaneSize() {
         return laneSize;
     }
-
+    
 
 
     public void updateLane(float deltaTime){
-
+        
     }
     public void addTroop(int column,Troop troop) throws IllegalAddException{
         if(lane.get(column).get(0).getEntityType() == EntityType.TOWER){ //checks first if column is a tower

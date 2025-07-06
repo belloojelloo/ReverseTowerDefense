@@ -9,7 +9,7 @@ public abstract class Troop extends Entity{
     protected int damage;
 
     public Troop(String name, int hp, int speed, int damage, TroopType troopType, float hitSpeed){
-        super(name, hp, attackCooldown, EntityType.TROOP);
+        super(name, hp, hitSpeed, EntityType.TROOP);
         this.damage = damage;
         this.speed = speed;
         this.troopType = troopType;
@@ -17,8 +17,12 @@ public abstract class Troop extends Entity{
     }
 
     //public abstract void move(float deltaTime);
-    public abstract void lockonTarget(); //implement here
-    public abstract void edrab();
+    
+    public void edrab(Entity enemy){
+        if(enemy != null){
+            enemy.takeDamage(damage);
+        }
+    }
 
     public String getName() {
         return name;
@@ -29,12 +33,9 @@ public abstract class Troop extends Entity{
     }
 
     public float getHitSpeed() {
-        return attackCooldown;
+        return hitSpeed;
     }
 
-    public void setHitSpeed(float attackCooldown) {
-        this.attackCooldown = attackCooldown;
-    }
     public boolean isDead(){
         return (hp <= 0);
     }
@@ -61,10 +62,8 @@ public abstract class Troop extends Entity{
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    public void update(float deltaTime){
-
-    }
-    public boolean isInRangeOfTarget(Lane lane) throws OutofBoundsException{
+    
+    public boolean isInRangeOfTarget(Lane lane){
         try{
             if((lane.getLane().get(this.getXposition()+1).get(0)) instanceof Tower){
                 return true; //if the troop is in range of the tower return true
@@ -72,13 +71,46 @@ public abstract class Troop extends Entity{
             return false;
         }
         catch(IndexOutOfBoundsException exception){
-            throw new OutofBoundsException();
+            return false; // if at world border return false (still wont be able to move)
         }
         
     }
-    public void move(float deltaTime){
-        xposition += speed * deltaTime;
+    public void reduceAttackCooldown(float deltaTime){
+        if(attackCooldown > 0){
+            attackCooldown -= deltaTime;
+            if(attackCooldown < 0){
+                attackCooldown = 0;
+            }
+        }
+    }
+    public void move(float deltaTime, Lane lane) throws OutofBoundsException{
+        if(!isInRangeOfTarget(lane)){ //if not in range of target check for other conditions to move
+           try{
+                if(lane.getLane().get(xposition+1).size() < 3){ //if the next column has less than three you are free to move
+                    xposition += speed * deltaTime;
+                }
+                else if(troopType == TroopType.BIRD){ //if it is a bird it can move regardless
+                    xposition += speed * deltaTime;
+                }
+                
+           }
+           catch(IndexOutOfBoundsException s){ //do nothing if at the world border
 
+           }
+           
+        }
+    }
+    public void update(float deltaTime, Lane lane) throws OutofBoundsException{
+        if(isDead()){
+            return; //if dead do nothing
+        }
+        reduceAttackCooldown(deltaTime); //else reduce cooldown
+        if(!isInRangeOfTarget(lane)){
+            move(deltaTime, lane); // move if no building in front of you
+        }
+        else if(isInRangeOfTarget(lane) && attackCooldown == 0){
+            edrab(lane.getLane().get(xposition+1).get(0));
+        }
 
     }
 

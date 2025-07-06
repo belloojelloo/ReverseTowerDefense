@@ -9,10 +9,10 @@ public abstract class Entity {
     protected final float hitSpeed;
 
 
-    public Entity(String name, int hp, float attackCooldown, EntityType entityType){
+    public Entity(String name, int hp, float hitSpeed, EntityType entityType){
         this.name = name;
         this.hp = hp;
-        this.attackCooldown = attackCooldown;
+        this.hitSpeed = hitSpeed;
         this.entityType = entityType;
     }
 
@@ -27,7 +27,9 @@ public abstract class Entity {
     public void setXposition(int xposition) {
         this.xposition = xposition;
     }
-   
+   public void takeDamage(int damage) {
+        hp -= damage;
+    }
 
 
 }
