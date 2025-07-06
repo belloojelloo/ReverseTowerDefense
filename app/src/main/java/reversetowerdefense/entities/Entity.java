@@ -1,5 +1,10 @@
 package reversetowerdefense.entities;
 
+import java.util.ArrayList;
+
+import reversetowerdefense.exceptions.OutofBoundsException;
+import reversetowerdefense.lanes.Lane;
+
 public abstract class Entity {
     protected final String name;
     protected int hp;
@@ -30,6 +35,11 @@ public abstract class Entity {
     }
    public void takeDamage(int damage) {
         hp -= damage;
+    }
+    public abstract void update(float deltaTime, ArrayList<ArrayList<Entity>> lane) throws OutofBoundsException;
+
+    public boolean isDead() {
+        return isDead;
     }
 
 

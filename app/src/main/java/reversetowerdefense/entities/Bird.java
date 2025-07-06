@@ -8,23 +8,7 @@ public class Bird extends Troop{
     }
 
 
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
-    public void lockonTarget() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lockonTarget'");
-    }
-
-    @Override
-    public void edrab() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'edrab'");
-    }
+   
     
     
 

@@ -39,8 +39,24 @@ public class Lane {
     
 
 
-    public void updateLane(float deltaTime){
-        
+    public void updateLane(float deltaTime) throws OutofBoundsException{
+        for(int i = 0; i<laneSize; i++){
+            ArrayList<Entity> row = lane.get(i);
+            for(int j = 0; j<row.size(); j++){
+                Entity entity = row.get(j);
+                if(entity == null){
+                    continue;
+                }
+                if(entity instanceof Troop){
+                    ((Troop)entity).update(deltaTime,lane);
+                }
+                else{
+                    entity.update(deltaTime, lane);
+                }
+                
+            }
+            row.removeIf(entity -> entity != null && entity.isDead());
+        }
     }
     public void addTroop(int column,Troop troop) throws IllegalAddException{
         if(lane.get(column).get(0).getEntityType() == EntityType.TOWER){ //checks first if column is a tower

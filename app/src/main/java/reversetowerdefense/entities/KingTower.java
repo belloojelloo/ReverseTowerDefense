@@ -2,8 +2,8 @@ package reversetowerdefense.entities;
 
 public class KingTower extends Tower{
 
-    public KingTower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, float hitSpeed) {
-        super("KING", 1000, 1, TowerType.KING, TroopType.SOLDIER,1);
+    public KingTower(String name, int hp, int range, TowerType towerType, TroopType spawnedTroop, float hitSpeed, int damage) {
+        super("KING", 1000, 1, TowerType.KING, TroopType.SOLDIER,1, 100);
         
     }
 
@@ -13,10 +13,6 @@ public class KingTower extends Tower{
         throw new UnsupportedOperationException("Unimplemented method 'spawnTroop'");
     }
 
-    @Override
-    public void edrab() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'edrab'");
-    }
+    
     
 }

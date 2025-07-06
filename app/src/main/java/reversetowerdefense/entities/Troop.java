@@ -1,5 +1,7 @@
 package reversetowerdefense.entities;
 
+import java.util.ArrayList;
+
 import reversetowerdefense.exceptions.OutofBoundsException;
 import reversetowerdefense.lanes.Lane;
 
@@ -35,9 +37,7 @@ public abstract class Troop extends Entity{
         return hitSpeed;
     }
 
-    public boolean isDead(){
-        return isDead;
-    }
+    
     public int getHp() {
         return hp;
     }
@@ -64,9 +64,9 @@ public abstract class Troop extends Entity{
     public void resetAttackCooldown(){
         attackCooldown = hitSpeed;
     }
-    public boolean isInRangeOfTarget(Lane lane){
+    public boolean isInRangeOfTarget(ArrayList<ArrayList<Entity>> lane){
         try{
-            if((lane.getLane().get(this.getXposition()+1).get(0)) instanceof Tower){
+            if((lane.get(this.getXposition()+1).get(0)) instanceof Tower){
                 return true; //if the troop is in range of the tower return true
             }
             return false;
@@ -84,10 +84,10 @@ public abstract class Troop extends Entity{
             }
         }
     }
-    public void move(float deltaTime, Lane lane) throws OutofBoundsException{
+    public void move(float deltaTime, ArrayList<ArrayList<Entity>> lane) throws OutofBoundsException{
         if(!isInRangeOfTarget(lane)){ //if not in range of target check for other conditions to move
            try{
-                if(lane.getLane().get(xposition+1).size() < 3){ //if the next column has less than three you are free to move
+                if(lane.get(xposition+1).size() < 3){ //if the next column has less than three you are free to move
                     xposition += speed * deltaTime;
                 }
                 else if(troopType == TroopType.BIRD){ //if it is a bird it can move regardless
@@ -101,7 +101,7 @@ public abstract class Troop extends Entity{
            
         }
     }
-    public void update(float deltaTime, Lane lane) throws OutofBoundsException{
+    public void update(float deltaTime, ArrayList<ArrayList<Entity>> lane) throws OutofBoundsException{
         if(isDead == true){
             return; //if dead do nothing
         }
@@ -110,7 +110,7 @@ public abstract class Troop extends Entity{
             move(deltaTime, lane); // move if no building in front of you
         }
         else if(isInRangeOfTarget(lane) && attackCooldown == 0){ //if there is a tower in front of you and you can attack then attack
-            edrab(lane.getLane().get(xposition+1).get(0));
+            edrab(lane.get(xposition+1).get(0));
             resetAttackCooldown();
 
         }
