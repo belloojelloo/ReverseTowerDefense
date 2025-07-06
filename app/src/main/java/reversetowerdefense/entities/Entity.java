@@ -7,6 +7,7 @@ public abstract class Entity {
     protected final EntityType entityType;
     protected int xposition;
     protected final float hitSpeed;
+    protected boolean isDead = false;
 
 
     public Entity(String name, int hp, float hitSpeed, EntityType entityType){

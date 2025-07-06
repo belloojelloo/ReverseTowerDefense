@@ -16,7 +16,6 @@ public abstract class Troop extends Entity{
 
     }
 
-    //public abstract void move(float deltaTime);
     
     public void edrab(Entity enemy){
         if(enemy != null){
@@ -37,7 +36,7 @@ public abstract class Troop extends Entity{
     }
 
     public boolean isDead(){
-        return (hp <= 0);
+        return isDead;
     }
     public int getHp() {
         return hp;
@@ -62,7 +61,9 @@ public abstract class Troop extends Entity{
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    
+    public void resetAttackCooldown(){
+        attackCooldown = hitSpeed;
+    }
     public boolean isInRangeOfTarget(Lane lane){
         try{
             if((lane.getLane().get(this.getXposition()+1).get(0)) instanceof Tower){
@@ -101,15 +102,22 @@ public abstract class Troop extends Entity{
         }
     }
     public void update(float deltaTime, Lane lane) throws OutofBoundsException{
-        if(isDead()){
+        if(isDead == true){
             return; //if dead do nothing
         }
         reduceAttackCooldown(deltaTime); //else reduce cooldown
         if(!isInRangeOfTarget(lane)){
             move(deltaTime, lane); // move if no building in front of you
         }
-        else if(isInRangeOfTarget(lane) && attackCooldown == 0){
+        else if(isInRangeOfTarget(lane) && attackCooldown == 0){ //if there is a tower in front of you and you can attack then attack
             edrab(lane.getLane().get(xposition+1).get(0));
+            resetAttackCooldown();
+
+        }
+        if(hp<=0){
+            hp = 0; //if dead then die
+            isDead = true;
+
         }
 
     }
