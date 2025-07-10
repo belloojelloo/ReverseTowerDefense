@@ -76,7 +76,7 @@ public class Lane {
             lane.get(column).add(troop);
              troop.setXposition(column);
         }
-        }
+        }//bird problem*
         
         
     }

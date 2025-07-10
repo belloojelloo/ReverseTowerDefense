@@ -13,13 +13,15 @@ public abstract class Entity {
     protected int xposition;
     protected final float hitSpeed;
     protected boolean isDead = false;
+    protected int level;
 
 
-    public Entity(String name, int hp, float hitSpeed, EntityType entityType){
+    public Entity(String name, int hp, float hitSpeed, EntityType entityType, int level){
         this.name = name;
         this.hp = hp;
         this.hitSpeed = hitSpeed;
         this.entityType = entityType;
+        this.level = level;
     }
 
     public EntityType getEntityType() {

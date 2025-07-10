@@ -36,7 +36,7 @@ public class LaneManager {
 
     }
     public ArrayList<Troop> getTroops(int laneIndex, int column){
-        return new ArrayList<>();
+        return new ArrayList<>(); //yetsalah*
     }
 
     

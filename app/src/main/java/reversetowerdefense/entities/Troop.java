@@ -10,8 +10,8 @@ public abstract class Troop extends Entity{
     protected int speed;
     protected int damage;
 
-    public Troop(String name, int hp, int speed, int damage, TroopType troopType, float hitSpeed){
-        super(name, hp, hitSpeed, EntityType.TROOP);
+    public Troop(String name, int hp, int speed, int damage, TroopType troopType, float hitSpeed, int level){
+        super(name, hp, hitSpeed, EntityType.TROOP,level);
         this.damage = damage;
         this.speed = speed;
         this.troopType = troopType;
@@ -92,7 +92,7 @@ public abstract class Troop extends Entity{
                 }
                 else if(troopType == TroopType.BIRD){ //if it is a bird it can move regardless
                     xposition += speed * deltaTime;
-                }
+                }// add birds already existing in column logic*
                 
            }
            catch(IndexOutOfBoundsException s){ //do nothing if at the world border
